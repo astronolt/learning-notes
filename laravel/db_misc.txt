@@ -1,0 +1,341 @@
+
+->get()
+->find(id)
+->findOrFail(id)
+->first()
+
+
+
+SELECT
+======
+ ->select('name', 'email as user_email')->get()
+ ->distinct()->get()
+ ->addSelect('age')->get()
+
+
+
+
+WHERE
+=====
+["where" clauses will be joined together using the and operator]
+ ->where('votes', '=', 100)
+ ->where('votes', 100)
+ ->where('name', 'like', 'T%')
+ ->where([
+    ['status', '=', '1'],
+    ['subscribed', '<>', '1'],
+ ]
+ ->orWhere('name', 'John')
+ ->orWhere(function($query) {
+      $query->where('name', 'Abigail')
+     })
+
+ ->whereNot(function($query) {
+      $query->where('name', 'Abigail')
+     })
+ ->orWhereNot(function($query) {
+      $query->where('name', 'Abigail')
+     })
+
+ ->whereBetween('votes', [1, 100])
+ ->orWhereBetween('votes', [1, 100])
+ ->whereNotBetween('votes', [1, 100])
+ ->orWhereNotBetween('votes', [1, 100])
+
+
+ ->whereIntegerInRaw('id', [1, 2, 3, 4, 5])
+ ->whereIntegerNotInRaw('id', [1, 2, 3, 4, 5])
+
+whereIn / whereNotIn / orWhereIn / orWhereNotIn
+ ->whereIn('id', [1, 2, 3])
+[USE whereIntegerInRaw instead if array is large]
+https://www.yellowduck.be/posts/optimising-large-wherein-queries-in-laravel/
+
+ ->whereNull('updated_at')
+ ->whereNotNull('updated_at')
+ ->whereDate('created_at', '2016-12-31')
+ ->whereMonth('created_at', '12')
+ ->whereDay('created_at', '31'
+ ->whereYear('created_at', '2016')
+ ->whereTime('created_at', '=', '11:20:45')
+
+
+
+
+WHERE JSON
+====
+ ->where('preferences->dining->meal', 'salad')
+ ->whereJsonContains('options->languages', 'en')
+ ->whereJsonContains('options->languages', ['en',    'de'])
+ ->whereJsonLength('options->languages', 0)
+ ->whereJsonLength('options->languages', '>', 1)
+
+
+whereColumn / orWhereColumn
+[verify that two columns are equal]
+ ->whereColumn('first_name', 'last_name')
+ ->whereColumn('updated_at', '>', 'created_at')
+ ->whereColumn([
+	['first_name', '=', 'last_name'],
+	['updated_at', '>', 'created_at'],
+    ])
+
+
+ADVANCED WHERE
+==============
+[query for columns that have full text indexes.]
+ $table->fullText('body') #table;
+ ->whereFullText('bio', 'web developer')
+
+ ->whereExists(function ($query) {
+               $query->select(DB::raw(1))
+                     ->from('orders')
+                     ->whereColumn('orders.user_id', 			'users.id');
+           })
+
+
+
+Subquery Where Clauses
+======================
+
+
+
+
+
+Ordering, Grouping, Limit & Offset
+==================================
+
+ ->orderBy('name', 'desc')->orderBy('email', 'asc')
+ 
+ ->skip(10)->take(5)->get();
+
+ ->inRandomOrder()
+ ->reorder()
+ ->reorder('email', 'desc')
+
+LATEST & NEWEST
+By default, the result will be ordered by the table's created_at column. Or, you may pass the column name
+ ->latest()
+ ->oldest()
+
+
+
+
+Conditional Clauses
+===================
+ $role = $request->input('role');
+ $users = DB::table('users')
+ ->when($role, function ($query, $role) {
+                    $query->where('role_id', $role);
+                })
+
+[You may pass another closure as the third argument to the when method. This closure will only execute if the first argument evaluates as false.]
+ $sortByVotes = $request->input('sort_by_votes');
+ $users = DB::table('users')
+                ->when($sortByVotes, function ($query, 			$sortByVotes) {
+                    $query->orderBy('votes');
+                }, function ($query) {
+                    $query->orderBy('name');
+                })
+
+
+
+
+INSERT
+======
+ ->insert([
+    ['email' => 'picard@example.com', 'votes' => 0],
+    ['email' => 'janeway@example.com', 'votes' => 0],
+ ]);
+
+ ->insert([
+    'email' => 'kayla@example.com',
+    'votes' => 0
+ ]);
+
+ ->insertOrIgnore();
+ ->insertUsing()
+ ->insertGetId()
+
+
+
+
+Upserts
+=======
+[method will insert records that do not exist and update the records that already exist with new values]
+
+
+
+UPDATES
+=======
+ ->where('id', 1)->update(['votes' => 1])
+
+
+
+Aggregates
+==========
+[You may call any of these methods after constructing your query:]
+count, max, min, avg, and sum.
+
+->where('finalized', 1)->count()
+
+[count alternatives]
+->where('finalized', 1)->exists()
+->doesntExist()
+
+
+
+
+
+
+Logical Grouping
+================
+you should generally always group calls to the orWhere in order to avoid unexpected query behavior. 
+
+           ->where('name', '=', 'John')
+           ->where(function ($query) {
+               $query->where('votes', '>', 100)
+                     ->orWhere('title', '=', 'Admin');
+           })
+
+
+
+Grouping
+========
+
+
+
+
+
+
+RAW
+===
+ ->select(DB::raw('count(*) as user_count, status'))
+
+[bindings as its second argument]
+ ->selectRaw('price * ? as price_with_tax', [1.0825])
+ ->whereRaw('price > IF(state = "TX", ?, 100)', [200])
+ ->havingRaw('SUM(price) > ?', [2500])
+ ->orderByRaw('updated_at - created_at DESC')
+ ->groupByRaw('city, state')
+
+
+
+
+
+Table
+=====
+Checking For Table / Column Existence
+ if (Schema::hasTable('users')) {
+    // The "users" table exists...
+ }
+ 
+ $table->fullText('body');
+
+
+
+
+Foreign key
+===========
+[ define a user_id column on the posts table that references the id column on a users table:]
+    Schema::table('posts', function (Blueprint $table) {
+        $table->unsignedBigInteger('user_id');
+        
+        $table->foreign('user_id')->references('id')->on('users')
+        ->onUpdate('cascade')
+        ->onDelete('cascade');
+    });
+
+
+
+
+Columns
+=========
+
+[extract a single column value]
+->where('name', 'John')->value('email')
+
+[containing the values of a single column]
+->pluck('title')
+
+[second argument: specify the column that the resulting collection should use as its keys]
+->pluck('title', 'name')
+
+if (Schema::hasColumn('users', 'email')) {
+    // The "users" table exists and has an "email" column...
+}
+
+
+
+
+
+
+
+Debugging
+=========
+where('votes', '>', 100)->dd(); 
+where('votes', '>', 100)->dump();
+
+
+
+
+
+Chunking Results
+================
+
+
+
+
+
+
+Streaming Results Lazily
+========================
+
+
+
+
+
+Joins
+=====
+
+
+
+
+UNION
+=====
+
+
+
+
+Transactions
+============
+[If an exception is thrown within the transaction closure, the transaction will automatically be rolled back and the exception is re-thrown]
+    use Illuminate\Support\Facades\DB;
+ 
+    DB::transaction(function () {
+        DB::update('update users set votes = 1');
+    
+        DB::delete('delete from posts');
+    });
+
+
+[second argument which defines the number of times a transaction should be retried when a deadlock occurs]
+    DB::transaction(function () {
+        DB::update('update users set votes = 1');
+    
+        DB::delete('delete from posts');
+    }, 5);
+
+
+
+CASTING
+=======
+    If you want your mind blown...
+
+    protected $casts = [
+        'db_json_column' => 'object'
+    ];
+
+    $model->db_json_column = $array; // persisted as json
+    $object = $model->db_json_column; // retrieved as object
+

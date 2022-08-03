@@ -1,0 +1,307 @@
+https://laravel.com/docs/9.x/
+
+
+
+ORM (OBJECT RELATED MAPPING)
+====
+
+
+MVC
+(MODEL VIEW CONTROLLER)
+========
+
+
+
+
+
+
+COMPOSER
+=========
+Instal composer
+https://getcomposer.org/download/
+
+Installing laravel globally
+ composer global require laravel/installer
+
+
+Starting a new LARAVEL project
+in parent directory
+ laravel new <project name>
+
+[specific version install]
+ composer create-project laravel/laravel="5.1.*" appName
+
+
+[regenerate the lock file and make sure your minimum requirements are full-filled]
+ composer dump -o
+
+[clear cache]
+ composer clearcache
+
+
+
+TO REMOVE VENDOR PACKAGES
+=========================
+[clear all cache by]
+ php artisan cache:clear 
+ php artisan config:clear
+ composer remove fideloper/proxy
+
+
+PHP ARTISAN
+===========
+Preview (Spin up development server)
+ php artisan serve
+
+[Run Laravel Project with Different Port and Host]
+ php artisan serve --host=localhost --port=8001
+
+or
+
+In .ENV file
+ SERVER_PORT=9000
+====================
+
+
+
+CONTROLLERS
+[app / http / controllers / ControlerName]
+===
+ php artisan make:controller PageController
+
+
+
+MYSQL - SETUP
+=============
+Adding MYSQL to Path Variabe;
+"Search for env in windows ->
+open and edit environmental variables ->
+Open [Path] Variable, add [C:\xampp\mysql\bin] to the list in the Path Variable
+[May need to restart]
+"
+
+Start the mysql with XAMPP
+
+
+[Login to mysql]
+ mysql -u root
+ create database <database name>
+
+[Connecting To The Database CLI]
+ php artisan db
+ php artisan db <connection_name>
+
+
+Mysql is case-insensitive depending on collation names
+_ci (case insensitive),
+_cs (case sensitive)
+_bin (binary).
+to create an column that is case sensitive for id
+Create the database/column with case-sensitive collation?
+ $table->string('col')->collate('utf8_bin');
+
+
+
+
+
+MODEL
+=====
+
+Create An Eloquent Model
+ php artisan make:model Pizza
+
+[model & Controller & Migration]
+================================
+ php artisan make:model <YourModelName> -c -m
+
+[create model in another folder]
+[Will be created in the App\Folder\Model]
+ php artisan make:model 'Folder/ModelName'
+
+
+
+
+MIGRATION
+=========
+[create new table ]
+php artisan make:migration create_<<table_name>>_table
+
+
+php artisan migrate:status
+php artisan migrate --force
+
+php artisan migrate:rollback
+php artisan migrate:rollback --step=5
+
+[will roll back all of your application's migrations]
+php artisan migrate:reset
+
+[This command effectively re-creates your entire database reset & migrate]
+php artisan migrate:refresh
+php artisan migrate:refresh --seed
+
+[will drop all tables from the database and then execute the migrate command]
+php artisan migrate:fresh
+php artisan migrate:fresh --seed
+
+Run Specific Migration
+To run the specific migration file from the custom path, use the following command to do this.
+
+ php artisan migrate --path=/database/migrations/2022_01_22_064006_create_events_table.php
+
+ php artisan migrate --path=/database/migrations/{folder}
+
+
+
+
+
+
+dump($var);
+dd($var);
+var_dump($var);
+die($var);
+print_r($var);
+
+
+
+
+
+ROUTES
+======
+
+See alist of all of the ruotes
+ php artisan route:lists
+
+Named Routes
+===
+Route::get('/')->name('pizza.index');
+[in a view (blade)]
+{{ route('pizza.index') }}
+{{ route('pizza.index', $id) }}
+
+
+
+[The compact method creates an array from existing variables given as string arguments to it]
+ $name = "Tony Stack";
+ return view('home', compact('name'));
+
+
+
+
+
+
+
+in a form to protect against forgery and error 419
+use cross site request forgery
+in blade directive
+@csrf
+
+
+
+the double colon :: is defined as Scope Resolution Operator.
+====
+<?php
+class A{
+   const PI=3.142;
+   static $x=10;
+}
+echo A::PI;
+echo A::$x;
+$var='A';
+echo $var::PI;
+echo $var::$x;
+?>
+
+
+
+
+SESSION
+=======
+[blade]
+@if(session()->has('name'))
+ {{ session()->get('name') }}
+@endif
+
+
+$data = $request->session()->all();
+$request->session()->now('status', 'successful!');
+$request->session()->exists('key')
+
+$request->session()->put('key', 'value');
+session(['key' => 'value']);
+
+$request->session()->flash('status', 'Task was successful!');
+
+
+$request->session()->forget('name');
+[multiple keys]
+$request->session()->forget(['name', 'status']);
+[remove all]
+$request->session()->flush();
+
+
+
+
+
+
+
+
+
+HASH
+====
+use Illuminate\Support\Facades\Hash;
+You can use to hashing password => Hash::make('yourpassword');
+You can use checking password => Hash::check($password, $user->password);
+
+
+
+
+
+
+
+FILES
+=====
+Download A file
+return response()->download(public_path('file_path/from_public_dir.pdf'));
+
+
+
+UPLOAD
+Storage::disk('local')->put('some.jpg');
+-
+$fileUploadUrl = Storage::putFileAs('avatars', new File($file), 'filename.jpg','public');
+
+
+
+
+
+REDIRECTS
+=========
+return redirect()->route('login');
+[If your route has parameters]
+return redirect()->route('profile', ['id' => 1]);
+
+
+Redirecting To Controller Actions
+return redirect()->action([HomeController::class, 'index']);
+
+redirect()->action(
+    [UserController::class, 'profile'], ['id' => 1]
+);
+
+
+Flashed Session Data
+return redirect('/dashboard')->with('status', 'Profile updated!');
+
+to flash the current request's input data to the session
+back()->withInput();
+
+
+
+
+
+
+NOTIFICATION
+============
+[ create a migration with the basic fields]
+    php artisan notifications:table

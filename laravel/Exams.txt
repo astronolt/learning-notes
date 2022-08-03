@@ -1,0 +1,109 @@
+https://www.guru99.com/laravel-interview-questions.html
+
+
+https://www.softwaretestinghelp.com/laravel-interview-questions/
+
+
+https://stackoverflow.com/questions/49348681/what-is-a-usage-and-purpose-of-laravels-binding
+
+
+
+
+
+The topics covered in this exam are as follows-
+
+Basics of Laravel 
+
+• Installing
+
+• Configuring
+
+• Directory Structure
+
+• Homestead and Valet
+
+• Deploying
+
+Architecture Concepts
+
+• Requesting Lifecycle
+
+• Service Containers and Providers
+
+• Facades and Contracts
+
+Laravel Concepts
+
+• Basics of Routing
+
+• Knowledge of Middleware
+
+• Understanding CSRF Protection
+
+• Controllers
+
+• Requests and Responses
+
+• Views
+
+• Generation of URL
+
+• Session and Validation
+
+• Handling Errors
+
+• Logging
+
+Laravel Frontend
+
+• Blade Templates
+
+• Localizing
+
+• Frontend Scaffolding
+
+• Compilation of Assets
+
+Laravel Security
+
+• Authentication
+
+• Understanding API Authentication
+
+• Authorization
+
+• Knowledge of Email Verification, Encryption and Hashing
+
+• Resetting Passwords
+
+Laravel and Database
+
+• Basics
+
+• Query Builder
+
+• Pagination and Migrations
+
+• Seeding and Redis
+
+Laravel and Eloquent ORM
+
+• Fundamentals
+
+• Relationships
+
+• Collections and Mutators
+
+• Knowledge of API Resources
+
+• Serialization
+
+Laravel Testing
+
+• Fundamentals
+
+• HTTP, Console and Browser Tests
+
+• Database
+
+• Basics of Mocking

@@ -1,0 +1,50 @@
+ ->where('finalized', 1)->count()
+ ->where('finalized', 1)->exists()
+ ->doesntExist()
+
+ ->findOrFail(id)
+
+ ->where('votes', '>', 100)->dd(); 
+
+ ->select(DB::raw('count(*) as user_count, status'))
+ ->select('name', 'email as user_email')->get()
+
+ ->orderBy('name', 'desc')->orderBy('email', 'asc')
+
+ ->skip(10)->take(5)->get();
+ ->offset(10)->limit(5)->get();
+ ->latest()
+ ->oldest()
+ ->inRandomOrder()
+
+
+
+
+WHERE JSON
+====
+ ->where('preferences->dining->meal', 'salad')
+ ->whereJsonContains('options->languages', 'en')
+ ->whereJsonContains('options->languages', ['en',    'de'])
+ ->whereJsonLength('options->languages', 0)
+ ->whereJsonLength('options->languages', '>', 1)
+
+
+Search text body
+ $table->fullText('body') #table;
+ ->whereFullText('bio', 'web developer')
+
+
+
+INSERT
+ ->insert([
+    ['email' => 'picard@example.com', 'votes' => 0],
+    ['email' => 'janeway@example.com', 'votes' => 0],
+]);
+
+
+
+Table
+==
+if (Schema::hasTable('users')) {
+    // The "users" table exists...
+}

@@ -1,0 +1,25 @@
+For firefox / chrome
+download (react developer tools)
+
+Create new react app
+ npx create-react-app react-blog
+
+Install node_modules if not present
+ npm install
+
+Run the react app
+ npm start
+
+#React component
+stateless functionional component
+Will create a default template function
+ sfc (in vs code editor)
+
+
+Using hooks
+ import { useState, useEffect } from "react";
+
+
+JSON SERVER INSTALL
+run this in same project folder in a different terminal
+ npx json-server --watch data/db.json --port 8000

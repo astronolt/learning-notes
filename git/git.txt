@@ -1,0 +1,127 @@
+##git configuration
+##
+git config --global user.name <username>
+git config --global user.email <email>
+
+#config review
+git config user.name
+
+
+
+#create repo
+#create or init git in current folder
+git init
+
+
+
+
+#see staging|commit status
+git status
+
+
+
+
+#add files to staging area
+git add <filename>
+
+#add all edited files to staging area
+git add .
+
+
+
+
+#commit files (a snapshot of in time of your code)
+git commit -m "a very descriptive message"
+
+
+
+#log of different commit
+git log
+
+#simpler log output
+git log --oneline
+
+
+
+
+#undoing commits
+#checkout(readonly, going back in time temporary)
+git checkout <commit_id>
+
+
+#revert(undo 1 commit)
+#will revert to a commit & create a new copy to the commit stack
+git revert <commit_id>
+
+
+#reset(permanently delete commit)
+#will still keep all editors (files) open
+git reset <commit_id>
+|
+#hard reset to a commit version
+git reset <commit_id> --hard
+
+
+
+###branch
+#creating a new branch
+git branch <branchname>
+
+#see all branches
+git branch -a
+
+#switch or enter in a branch
+git checkout <branchname>
+
+#create and switch to branch immediately
+git checkout -b <branchname>
+
+#delete branch
+git branch -d <branchname>
+
+
+
+###merge
+#merge two branches
+git merge <branchname>
+
+
+###pull
+ git pull origin main
+
+if you have initialized repo in github and also committed locally
+ git pull origin master --allow-unrelated-histories
+
+Force a push
+ git push -f origin main
+
+
+
+
+
+…or create a new repository on the command line
+
+echo "# champainn" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/niehgierb/champainn.git
+git push -u origin main
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/niehgierb/champainn.git
+git branch -M main
+git push -u origin main
+
+
+
+To uninitialize (remove) git from your project directory, run this command in your Terminal/Command Line while inside your project directory:
+rmdir .git
+
+
+###Force a push
+ git push -f origin master
+
+
