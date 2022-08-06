@@ -305,3 +305,8 @@ NOTIFICATION
 ============
 [ create a migration with the basic fields]
     php artisan notifications:table
+
+
+
+FACADES
+=======
