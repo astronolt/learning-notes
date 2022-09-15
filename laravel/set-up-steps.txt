@@ -1,0 +1,29 @@
+Generate App key variable
+ php artisan key:generate
+
+
+- set up Database
+   [local]
+   [webserver]
+
+   ideally use the following:
+    Server Connection Collation - utf8mb4_unicode_ci
+    Default Collation - utf8mb4_unicode_ci
+    Table Collation- utf8mb4_unicode_ci (when needed)
+    https://quantumwarp.com/kb/articles/23-mysql/392-what-mysql-database-collation-should-i-use
+
+
+   Test DB
+      try {
+      \DB::connection()->getPDO();
+      dump('Database connected: ' . \DB::connection()->getDatabaseName());
+      }
+      
+      catch (\Exception $e) {
+         dump('Database connected: ' . 'None');
+      }
+
+
+
+
+

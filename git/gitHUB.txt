@@ -1,2 +1,51 @@
 Credentials issues
 windows credential manager
+
+
+
+
+ 
+…or create a new repository on the command line
+
+echo "# champainn" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/niehgierb/champainn.git
+git push -u origin main
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/niehgierb/champainn.git
+git branch -M main
+git push -u origin main
+
+
+
+
+REMOTE URL
+===
+
+You can change a remote using the:
+ git remote rename <old-name> <new-name>
+
+
+You can change a remote url using the:
+ git remote set-url <name> <url>
+
+check our existing remotes to see what has been set:
+ git remote -v
+
+We can verify the new remote URL:
+ git remote -v origin
+
+
+
+
+
+
+clone a private repository
+from your account and you can also clone a private repository from organization if you're its owner or member.
+ *pat is PAT(Personal Access Token).
+ git clone https://<pat>@github.com/<your account or organization>/<repo>.git

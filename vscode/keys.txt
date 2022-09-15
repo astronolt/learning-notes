@@ -1,0 +1,8 @@
+select
+======
+Select Current Line
+ Ctrl + L
+to select all occurrences of current selection:
+ Ctrl + Shift + L
+select all occurrences of current word:
+ Ctrl + F2

@@ -98,25 +98,6 @@ Force a push
 
 
 
-
-…or create a new repository on the command line
-
-echo "# champainn" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/niehgierb/champainn.git
-git push -u origin main
-
-…or push an existing repository from the command line
-
-git remote add origin https://github.com/niehgierb/champainn.git
-git branch -M main
-git push -u origin main
-
-
-
 To uninitialize (remove) git from your project directory, run this command in your Terminal/Command Line while inside your project directory:
 rmdir .git
 
@@ -124,4 +105,13 @@ rmdir .git
 ###Force a push
  git push -f origin master
 
+
+
+
+To configure the initial branch name to use in all of your new repositories, which will suppress this warning, call:
+ git config --global init.defaultBranch <name>
+
+Names commonly chosen instead of 'master' are 'main', 'trunk' and 'development'. 
+The just-created branch can be renamed via this command:
+ git branch -m <name>
 

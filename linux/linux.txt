@@ -1,0 +1,24 @@
+-r option which means recursive remove.
+Also the -f option can be provided to force the removal of some minor warnings.
+The -i option is used for confirmation of the given directory and file delete.
+
+ rm or rmdir
+ rmdir -r -f folder
+ rmdir -rf folder
+ rm -rfi folder
+
+
+
+
+Copy folder
+=======
+ cp [options] <sourcefolder> <destinationfolder>
+
+Single folder
+ cp <source> <destination>
+
+recursive copy
+cp -R /random /home
+
+Copy Multiple Directories
+ cp [options] <folder1> <folder2> <folder3> <folder4> <destination>

@@ -38,6 +38,9 @@ in parent directory
 [clear cache]
  composer clearcache
 
+[regenerates the list of all classes that need to be included in the project (autoload_classmap.php). Ideal for when you have a new class inside your project]
+ composer dump-autoload
+
 
 
 TO REMOVE VENDOR PACKAGES
@@ -52,6 +55,11 @@ PHP ARTISAN
 ===========
 Preview (Spin up development server)
  php artisan serve
+
+
+Get Laravel Framework
+ php artisan --version
+
 
 [Run Laravel Project with Different Port and Host]
  php artisan serve --host=localhost --port=8001
