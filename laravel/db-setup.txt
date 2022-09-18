@@ -1,0 +1,10 @@
+collation
+=========
+
+Mysql is case-insensitive depending on collation names
+_ci (case insensitive),
+_cs (case sensitive)
+_bin (binary).
+to create an column that is case sensitive for id
+Create the database/column with case-sensitive collation?
+ $table->string('col')->collate('utf8mb4_bin');

@@ -100,15 +100,6 @@ Start the mysql with XAMPP
  php artisan db <connection_name>
 
 
-Mysql is case-insensitive depending on collation names
-_ci (case insensitive),
-_cs (case sensitive)
-_bin (binary).
-to create an column that is case sensitive for id
-Create the database/column with case-sensitive collation?
- $table->string('col')->collate('utf8_bin');
-
-
 
 
 
@@ -157,10 +148,12 @@ To run the specific migration file from the custom path, use the following comma
 
  php artisan migrate --path=/database/migrations/2022_01_22_064006_create_events_table.php
 
- php artisan migrate --path=/database/migrations/{folder}
+ php artisan migrate --path=/database/migrations/{folder or file}
 
 
-
+DATABASE GUARDED
+================
+The guarded property is the reverse of fillable property in the Laravel Model. If fillable specifies which fields to be mass assigned (allow the use of "create" or "update" method), guarded specifies which fields are not mass assignable. Set Columns To Prevent Mass Assignable in Laravel
 
 
 
