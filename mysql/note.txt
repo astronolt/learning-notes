@@ -1,0 +1,11 @@
+MySQL similar name for status or type column
+   status
+      condition
+      situation
+      state
+
+   type
+      kind
+      sort
+      variety
+      category
