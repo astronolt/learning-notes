@@ -1,0 +1,28 @@
+Different ways for passing data to view in Laravel
+   Using view()
+   ============
+   Route::get('/', function () {
+    return view('gfg', ['articleName' => 'Article 1']);
+   });
+
+
+
+   Using with()
+   ============
+   Route::get('/', function () {
+   $articleName = ‘Article 1’;
+   return view('gfg')->with('articleName', $articleName)->
+                with('articlePublished', 'On GeeksforGeeks');
+   });
+
+
+
+   Using compact()
+   ==============
+   Route::get('/', function () {
+    $articleName = ['Article 1','Article 2'];
+    $articlePublished = 'On GeeksforGeeks';
+    return view('gfg', compact('articleName', 
+                         'articlePublished'));
+   });
+
