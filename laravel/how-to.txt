@@ -1,3 +1,12 @@
 How to set up file permissions for Laravel?
  https://stackoverflow.com/questions/30639174/how-to-set-up-file-permissions-for-laravel/37266353#37266353
 
+
+
+
+
+There's a way to override this view. All you need to do is create 419.blade.php file inside the resources/views/errors folder.
+If you need to find the Laravel's default 419.blade.php file, you can publish vendor files:
+
+ php artisan vendor:publish --tag=laravel-errors
+
