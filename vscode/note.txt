@@ -1,5 +1,11 @@
 VS Code contains emphasized items but no error?
-
    Use the command, CTRL+SHIFT+P on windows or COMMAND+SHIFT+P on mac, then search "Developer: reload window", click on it, your vs will reload and enjoy your stress-free coding.
 
 
+
+
+
+You're in the less program, which makes the output of git log scrollable.
+   Type q to exit this screen. Type h to get help.
+
+   If you don't want to read the output in a pager and want it to be just printed to the terminal define the environment variable GIT_PAGER to cat or set core.pager to cat (execute git config --global core.pager cat).
