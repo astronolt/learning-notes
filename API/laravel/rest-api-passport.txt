@@ -1,0 +1,43 @@
+CREATING API REST WITH LARAVEL 8 PASSPORT AUTHENTICATION
+=========================
+
+[1]
+Install Passport via the Composer package manager:
+ composer require laravel/passport
+
+***
+If installation fails
+You can also try re-running composer require with an explicit version constraint, to figure out if any version is installable
+ composer require laravel/passport:*
+or if you know which you need.
+ composer require laravel/passport:^2.1"
+
+
+
+[2]
+Migrate the new passport tables
+ php artisan migrate
+
+Then install a passport
+ php artisan passport:install
+
+
+
+[3]
+configure the model, service provider, and auth config file.
+
+In model, we added HasApiTokens class of Passport,
+ use Laravel\Passport\HasApiTokens;
+
+In auth.php, we added API auth configuration.
+ 'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
+    ],
+
