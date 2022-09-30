@@ -1,0 +1,8 @@
+tabular (relational) | MongoDB
+Database | Database
+Table | Collection
+Index | Index
+Join | $lookup
+Foreign Key | References
+
+
