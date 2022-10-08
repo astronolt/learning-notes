@@ -22,3 +22,39 @@ cp -R /random /home
 
 Copy Multiple Directories
  cp [options] <folder1> <folder2> <folder3> <folder4> <destination>
+
+
+
+
+CHMOD all files to 644 and all Directories to 755
+===========
+navigate to the directory you want to start the change in and type:
+   [For directories]
+   find . -type d -print0 | xargs -0 chmod 0755
+
+   or
+
+   [For files]
+   find . -type f -print0 | xargs -0 chmod 0644
+
+
+If you need to change ownership of files, it is just as easy to do.
+   chown -R username:usergroup *
+
+If you merely want to change ownership on a directory – you specify that as:
+   chown -R username:usergroup directory
+
+   or
+
+   chown -R username:usergroup directory/sub-directory/yet-another-sub-directory
+
+
+
+
+
+
+CPanel check Apache logs
+=====
+
+Your log files will generally be located in
+“/usr/local/apache/logs/error_log”

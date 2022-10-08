@@ -1,6 +1,12 @@
 CREATING API REST WITH LARAVEL 8 PASSPORT AUTHENTICATION
 =========================
 
+summary
+Laravel provides an easy way to create API. if you have authentication in your mobile app then you can easily do it using a passport. Laravel 8 Passport provides a way to create auth token for validating users.
+
+
+
+
 [1]
 Install Passport via the Composer package manager:
  composer require laravel/passport
@@ -40,4 +46,29 @@ In auth.php, we added API auth configuration.
             'provider' => 'users',
         ],
     ],
+
+
+
+
+[4]
+Create a Products table and migrate.
+ php artisan make:migration products
+Create a name and details column in the Product's table.
+
+Then also create a Products model
+ php artisan make:model Product
+Make the columns name and details fillable
+ protected $fillable = [
+    'name', 'detail'
+];
+
+
+
+
+[5]
+Add new routes In the routes/api.php file
+
+
+And create new controllers in app/controllers/API folder:
+BaseController, ProductController, and RegisterController
 
