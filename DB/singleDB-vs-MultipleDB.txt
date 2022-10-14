@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/21844479/multiple-databases-vs-single-database-with-logically-partitioned-data
+
+You'll wish you had used separate databases:
+
+    If you ever want to grant permissions to the databases themselves to clients or superusers.

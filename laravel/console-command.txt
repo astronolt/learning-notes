@@ -1,0 +1,16 @@
+
+   1. Create Command class with: php artisan make:command NameClass
+
+   2. Go to app/Console/Commands/ and find the class file NameClass.php
+
+   3. In the NameClass.php you have two attributes $signature (the name of the command) and $description (Information about what your command does).
+
+   4. Set the name and the description of your command.Ex: protected $signature='namecommand'; protected $descripton = 'This method migrate tables in order'
+
+   5. Inside the NameClass.php you have a method called handle(), here you have to declare the code you want to be executed when you write the command.
+   
+   6. Register your command. Go to app/Console/Kernel.php and add your class to the list of Command Classes. protected $commands = [
+    Commands\NameClass::class,
+    ];
+   
+   7. Write the command in the terminal. php artisan namecommand

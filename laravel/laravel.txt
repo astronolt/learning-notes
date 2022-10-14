@@ -100,6 +100,14 @@ Start the mysql with XAMPP
  php artisan db <connection_name>
 
 
+[Wipe all tables in database]
+ php artisan db:wipe
+
+ php artisan db:wipe {--database=} {--drop-views} {--drop-types} {--force}
+    database - The database connection to use
+    drop-views - Drop all tables and views
+    drop-types - Drop all tables and types (Postgres only)
+    force - Force the operation to run when in production
 
 
 
@@ -124,6 +132,10 @@ MIGRATION
 =========
 [create new table ]
 php artisan make:migration create_<<table_name>>_table
+
+[create migration in folder]
+php artisan make:migration filename --path=/database/migrations/relations
+php artisan make:migration create_products_table --path=/database/migrations/translations
 
 
 php artisan migrate:status
