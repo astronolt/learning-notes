@@ -1,0 +1,200 @@
+======
+Task scheduler
+======
+
+command scheduler offers a fresh approach to managing scheduled tasks on your server. The scheduler allows you to fluently and expressively define your command schedule within your Laravel application itself. When using the scheduler, only a single cron entry is needed on your server.
+
+
+call
+===
+   $schedule->call(new DeleteRecentUsers)->daily();
+   $schedule->call(function () {
+            DB::table('recent_users')->delete();
+        })->daily();
+
+
+command
+===
+   $schedule->command('emails:send Taylor --force')->daily();
+ 
+   $schedule->command(SendEmailsCommand::class, ['Taylor', '--force'])->daily();
+
+job
+===
+   $schedule->job(new Heartbeat)->everyFiveMinutes();
+
+exec
+====
+   $schedule->exec('node /home/forge/script.js')->daily();
+
+
+
+
+
+Truth Test Constraints
+===
+   $schedule->command('emails:send')->daily()->when(function () {
+      return true;
+   });
+
+The skip method may be seen as the inverse of when. If the skip method returns true, the scheduled task will not be executed:
+
+$schedule->command('emails:send')->daily()->skip(function () {
+    return true;
+});
+
+
+OPTIONS
+=======
+   ->runInBackground();
+   ->environments(['staging', 'production']);
+   ->withoutOverlapping();
+   ->onOneServer();
+   ->evenInMaintenanceMode();
+   ->sendOutputTo($filePath);
+   ->appendOutputTo($filePath);
+   ->emailOutputTo('taylor@example.com');
+   ->emailOutputOnFailure('taylor@example.com');
+
+   ->before(function () {
+         // The task is about to execute...
+   })
+   ->after(function () {
+         // The task has executed...
+   });
+
+   ->onSuccess(function () {
+         // The task succeeded...
+   })
+   ->onFailure(function () {
+         // The task failed...
+   });
+
+   ->pingBefore($url)
+   ->thenPing($url);
+   ->pingBeforeIf($condition, $url)
+   ->thenPingIf($condition, $url);
+   ->pingOnSuccess($successUrl)
+   ->pingOnFailure($failureUrl);
+
+
+Test
+===
+   php artisan schedule:test
+   php artisan schedule:list
+
+
+Running the scheduler
+========
+   * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+
+   locally
+   ====
+      php artisan schedule:work
+
+
+
+
+
+
+
+
+
+
+
+====
+ARTISAN
+====
+
+Writing Output
+To send output to the console, you may use the line, info, comment, question, warn, and error methods
+
+   public function handle()
+   {
+      // Write a single blank line...
+      $this->newLine();
+
+      $this->info('The command was successful!');
+   }
+
+
+Programmatically Executing Commands
+   use Illuminate\Support\Facades\Artisan;
+
+   Route::post('/user/{user}/mail', function ($user) {
+      $exitCode = Artisan::call('mail:send', [
+         'user' => $user, '--queue' => 'default'
+      ]);
+   
+      //
+   });
+
+
+   Artisan::queue('mail:send', [
+      'user' => 1, '--queue' => 'default'
+   ])->onConnection('redis')->onQueue('commands');
+
+
+
+
+
+
+====
+JOBS QUEUE
+====
+Thankfully, Laravel allows you to easily create queued jobs that may be processed in the background. By moving time intensive tasks to a queue, your application can respond to web requests with blazing speed
+
+   php artisan make:job ProcessPodcast
+
+   // This job is sent to the default connection's default queue...
+   ProcessPodcast::dispatch();
+   
+   // This job is sent to the default connection's "emails" queue...
+   ProcessPodcast::dispatch()->onQueue('emails');
+
+
+   php artisan queue:work --once
+   php artisan queue:work --queue=high,default
+   php artisan queue:work --max-time=3600
+   php artisan queue:work --sleep=3
+
+   php artisan queue:work --timeout=60
+   php artisan queue:work --tries=3
+
+   php artisan queue:listen
+   php artisan queue:restart
+
+   class ProcessPodcast implements ShouldQueue
+   {
+      /**
+      * The number of times the job may be attempted.
+      *
+      * @var int
+      */
+      public $tries = 5;
+
+      /**
+      * The number of seconds to wait before retrying the job.
+      *
+      * @var int
+      */
+      public $backoff = 3;
+      //or
+      public function backoff()
+      {
+         return 3;
+         //or
+         return [1, 5, 10];
+      }
+
+      //you may define a time at which the job should no longer be attempted
+      public function retryUntil()
+      {
+         return now()->addMinutes(10);
+      }
+   }
+   
+
+OPTIONS
+====
+   ->delay(now()->addMinutes(10)
