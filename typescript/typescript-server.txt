@@ -1,0 +1,41 @@
+
+#START
+
+npm init
+
+#STYLING & FORMATTING
+npm i --save-dev prettier
+npm i --save-dev eslint
+npm i --save-dev eslint-config-prettier
+npm i --save-dev eslint-plugin-prettier
+
+
+#TYPESCRIPT
+npm i --save-dev typescript
+npm i --save-dev ts-node 
+npm i --save-dev @types/node
+npx tsc --init 
+
+
+#JASMINE (TESTING)
+npm i jasmine
+npm i jasmine-spec-reporter
+npm i --save-dev @types/jasmine
+
+   ├── src
+   │     ├──  tests
+   │     │     ├── helpers
+   │     │     │      └── reporter.ts
+   │     │     └── indexSpec.ts
+   │     └── index.ts
+
+#SUPERTEST (ENDPOINT TESTING)
+npm i supertest
+npm i --save-dev @types/supertest
+
+
+#EXPRESS
+npm i express
+npm i --save-dev @types/express
+npm i --save-dev nodemon
+"start": "nodemon src/index.ts"
